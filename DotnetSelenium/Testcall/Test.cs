@@ -18,8 +18,9 @@ namespace DotnetSelenium.Testcall
         public void LoginCheck()
         {
             Login log = new Login(driver,wait);
-            log.DoLogin();
-
+            log
+                .DoLogin()
+                .LoginVerify();
 
         }
 
@@ -34,6 +35,20 @@ namespace DotnetSelenium.Testcall
             punch.punchcheck();
 
         }
+
+        [Test]
+        public void AdminCheck()
+        {
+            AddAdmin adminadd=new AddAdmin(driver,wait);
+            Login log = new Login(driver, wait);
+            log
+                .DoLogin();
+            adminadd
+                    .adminadd()
+                    .detailsenroll()
+                    .enterpass();
+        }
+
         [Test]
         public void Emp() {
             Login log = new Login(driver, wait);
