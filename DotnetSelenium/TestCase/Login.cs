@@ -26,18 +26,25 @@ namespace DotnetSelenium.TestCase
             this.wait=wait; 
         }
 
-        public void DoLogin()
+        public Login DoLogin()
         {
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
             driver.FindElement(username).SendKeys("Admin");
             driver.FindElement(password).SendKeys("admin123");
             wait.Until(ExpectedConditions.ElementToBeClickable(button));
             driver.FindElement(button).Click();
+            return this;
+            
+        }
+
+        public Login LoginVerify()
+        {
+
             By dashboardHeader = By.XPath("//h6[text()='Dashboard']");
             wait.Until(ExpectedConditions.ElementIsVisible(dashboardHeader));
-            string actualText=driver.FindElement(dashboardHeader).Text;
+            string actualText = driver.FindElement(dashboardHeader).Text;
             Assert.That(actualText, Is.EqualTo("Dashboard"), "Login failed or unexpected page title");
-
+            return this;
         }
         
             

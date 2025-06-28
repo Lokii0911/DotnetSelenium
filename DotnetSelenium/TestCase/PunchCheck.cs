@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DotnetSelenium.Testcall;
 
 namespace DotnetSelenium.TestCase
 {
-    public class PunchCheck
+    public class PunchCheck: Basefunc
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
@@ -21,7 +22,7 @@ namespace DotnetSelenium.TestCase
         private static readonly By punchInButton = By.XPath("//button[normalize-space()='In']");
         private static readonly By punchOutButton = By.XPath("//button[normalize-space()='Out']");
 
-        public PunchCheck(IWebDriver driver,WebDriverWait wait)
+        public PunchCheck(IWebDriver driver,WebDriverWait wait):base(driver,wait)
         {
             this.driver = driver;
             this.wait = wait;   
@@ -57,7 +58,7 @@ namespace DotnetSelenium.TestCase
         }
     
 
-        public bool IsElementVisible(By locator)
+        /*public bool IsElementVisible(By locator)
         {
             try
             {
@@ -72,7 +73,7 @@ namespace DotnetSelenium.TestCase
             {
                 return false;
             }
-        }
+        }*/
 
 
     }
