@@ -35,5 +35,21 @@ namespace DotnetSelenium.Testcall
                 return false;
             }
         }
+        public void SafeClick(By locator)
+        {
+            try
+            {
+                var element = wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                element.Click();
+            }
+            catch (WebDriverTimeoutException)
+            {
+                Console.WriteLine($"Element not clickable : {locator}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error during SafeClick: {e.Message}");
+            }
+        }
     }
 }

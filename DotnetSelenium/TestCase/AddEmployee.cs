@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DotnetSelenium.Testcall;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DotnetSelenium.TestCase
 {
-    public class AddEmployee
+    public class AddEmployee:Basefunc
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
@@ -26,7 +27,7 @@ namespace DotnetSelenium.TestCase
         private static readonly By passfocus = By.XPath("//div/input[@class='oxd-input oxd-input--focus' and @type='password' and @autocomplete='off']");
         private static readonly By Save= By.XPath("//button[@type='submit' and @class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']");
 
-        public AddEmployee(IWebDriver driver, WebDriverWait wait    )
+        public AddEmployee(IWebDriver driver, WebDriverWait wait):base(driver,wait)
         {
             this.driver = driver;
             this.wait = wait;
@@ -42,7 +43,7 @@ namespace DotnetSelenium.TestCase
         
         public AddEmployee AddButton()
         {
-            wait.Until(ExpectedConditions.ElementToBeClickable(Add)).Click();
+            SafeClick(Add);
             wait.Until(ExpectedConditions.ElementToBeClickable(FirstNameInput)).SendKeys("Hari");
             wait.Until(ExpectedConditions.ElementToBeClickable(MiddleNameInput)).SendKeys("Chandra");
             wait.Until(ExpectedConditions.ElementToBeClickable(LastNameInput)).SendKeys("Gupta");
