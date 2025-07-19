@@ -1,4 +1,4 @@
-﻿using DotnetSelenium.Testcall;
+﻿using DotnetSelenium.Setup;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -51,11 +51,11 @@ namespace DotnetSelenium.TestCase
         }
         public AddEmployee logincredetials()
         {
-            wait.Until(ExpectedConditions.ElementToBeClickable(CheckboxInput)).Click();
+            SafeClick(CheckboxInput);
             wait.Until(ExpectedConditions.ElementToBeClickable(username)).SendKeys("Hari#07");
             wait.Until(ExpectedConditions.ElementToBeClickable(pass)).SendKeys("Hari#2004");
             wait.Until(ExpectedConditions.ElementToBeClickable(passfocus)).SendKeys("Hari#2004");
-            wait.Until(ExpectedConditions.ElementToBeClickable(Save)).Click();
+            SafeClick(Save);
             return this;
 
         }

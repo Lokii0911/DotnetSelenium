@@ -63,9 +63,18 @@ namespace DotnetSelenium.Testcall
                 .AddButton()
                 .logincredetials();
 
-
-
         }
+        [Test]
+        public void Buzzpost()
+        {
+            Login log = new Login(driver, wait);
+            Addbuzz buzz=new Addbuzz(driver, wait);
+            log.DoLogin();
+            buzz
+                .Buzzclick()
+                .BuzzVerify();
+        }
+
     }
 
 }

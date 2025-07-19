@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotnetSelenium.Testcall
+namespace DotnetSelenium.Setup
 {
     public class Basefunc
     {
@@ -51,5 +51,36 @@ namespace DotnetSelenium.Testcall
                 Console.WriteLine($"Error during SafeClick: {e.Message}");
             }
         }
+
+        public void SafestClick(By locator)
+        {
+            try
+            {
+                wait.Until(ExpectedConditions.ElementIsVisible(locator));
+                var element = wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+
+                // Scroll into view first
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({block: 'center'});", element);
+
+                try
+                {
+                    element.Click();
+                }
+                catch (ElementClickInterceptedException)
+                {
+                    // Fallback to JavaScript click if intercepted
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
+                }
+            }
+            catch (WebDriverTimeoutException)
+            {
+                Console.WriteLine($"Element not clickable : {locator}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error during SafeClick: {e.Message}");
+            }
+        }
+
     }
 }
