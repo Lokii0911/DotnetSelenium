@@ -21,6 +21,16 @@ namespace DotnetSelenium.Testcall
             log
                 .DoLogin()
                 .LoginVerify();
+                
+        }
+
+        [Test]  
+        public void LoginFailCheck()
+        {
+            Login log = new Login(driver, wait);
+            log
+                .DoNotLogin()
+                .DonotLoginVerify();
 
         }
 
@@ -56,12 +66,13 @@ namespace DotnetSelenium.Testcall
             log
                 .DoLogin()
                 .LoginVerify();
-
+                
 
             add
                 .Emp()
                 .AddButton()
                 .logincredetials();
+
 
         }
         [Test]

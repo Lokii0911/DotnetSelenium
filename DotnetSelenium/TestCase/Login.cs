@@ -8,10 +8,11 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 using SeleniumExtras.WaitHelpers;
+using DotnetSelenium.Setup;
 
 namespace DotnetSelenium.TestCase
 {
-    public class Login
+    public class Login: Basefunc
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
@@ -20,7 +21,8 @@ namespace DotnetSelenium.TestCase
         private static readonly By password=By.Name("password");
         private static readonly By button = By.CssSelector("button[type='submit']");
 
-        public Login(IWebDriver driver,WebDriverWait wait)
+
+        public Login(IWebDriver driver,WebDriverWait wait):base(driver, wait)
         {
             this.driver = driver;
             this.wait=wait; 
@@ -37,6 +39,17 @@ namespace DotnetSelenium.TestCase
             
         }
 
+        public Login DoNotLogin()
+        {
+            driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
+            driver.FindElement(username).SendKeys("Admin");
+            driver.FindElement(password).SendKeys("admin");
+            wait.Until(ExpectedConditions.ElementToBeClickable(button));
+            SafeClick(button);
+            return this;
+
+        }
+
         public Login LoginVerify()
         {
 
@@ -46,8 +59,25 @@ namespace DotnetSelenium.TestCase
             Assert.That(actualText, Is.EqualTo("Dashboard"), "Login failed or unexpected page title");
             return this;
         }
-        
-            
-        
+
+        public Login DonotLoginVerify()
+        {
+            bool loginFailed = false;
+            if (IsElementVisible(button))
+            {
+               Console.WriteLine("Login successfully failed ");
+                loginFailed = true;
+            }
+            else
+            {
+               Console.WriteLine("Login successfully failed ");
+               loginFailed = false;
+            }
+            Assert.That(loginFailed, Is.True, "Login did not fail as expected with wrong credentials");
+            return this;
+        }
+
+
+
     }
 }
