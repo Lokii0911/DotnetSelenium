@@ -58,8 +58,6 @@ namespace DotnetSelenium.Setup
             {
                 wait.Until(ExpectedConditions.ElementIsVisible(locator));
                 var element = wait.Until(ExpectedConditions.ElementToBeClickable(locator));
-
-                // Scroll into view first
                 ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({block: 'center'});", element);
 
                 try
@@ -68,7 +66,7 @@ namespace DotnetSelenium.Setup
                 }
                 catch (ElementClickInterceptedException)
                 {
-                    // Fallback to JavaScript click if intercepted
+                    
                     ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
                 }
             }
