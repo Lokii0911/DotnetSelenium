@@ -1,5 +1,11 @@
 # Dotnet Selenium
-This project is a Selenium-based automation framework developed in C# using NUnit, following the Page Object Model (POM) with inheritance to ensure clean and maintainable test code. It automates key HRM workflows including login, punch in/out attendance tracking, and employee addition. The framework uses WebDriverWait for reliable synchronization to handle click interception issues, and extension methods to improve element handling. Designed as a hands-on learning project, it demonstrates real-world automation concepts like modular test design, reusable page classes, and robust assertion strategies for validating UI behaviors.
+This project is a Selenium-based automation framework developed in C# using NUnit, following the Page Object Model (POM) with inheritance to ensure clean and maintainable test code. It automates key HRM workflows including login, punch in/out attendance tracking, and employee addition. The framework uses WebDriverWait for reliable synchronization to handle click interception issues, and extension methods to improve element handling.
+
+The framework now also includes ExtentReports HTML reporting with embedded screenshots for failed tests, providing a clear visual report of test execution results. Reports are generated automatically in the TestReports folder after each run, offering detailed insights into test steps, pass/fail status, stack traces, and visual proof of failures.
+
+Designed as a hands-on learning project, it demonstrates real-world automation concepts like modular test design, reusable page classes, robust assertion strategies for validating UI behaviors, and professional-grade reporting for test result analysis.
+
+
 
 # Outputs
 ![Selenium suite1](https://github.com/user-attachments/assets/df38129c-8784-42d7-b00a-ca6527803fe0)
