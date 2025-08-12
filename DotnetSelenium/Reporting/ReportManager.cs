@@ -26,7 +26,7 @@ namespace DotnetSelenium.Reporting
                 _extent = new ExtentReports();
                 _extent.AttachReporter(sparkReporter);
                 _extent.AddSystemInfo("Environment", "QA");
-                _extent.AddSystemInfo("Tester", "Lokii");
+                _extent.AddSystemInfo("Tester", "Lokesh");
             }
             return _extent;
         }

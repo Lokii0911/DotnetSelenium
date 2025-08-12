@@ -86,6 +86,17 @@ namespace DotnetSelenium.Testcall
                 .BuzzVerify();
         }
 
+        [Test]
+        public void RecReg()
+        {
+
+            Login log = new Login(driver, wait);
+            Recruitment rec=new Recruitment(driver, wait);
+            log .DoLogin();
+            rec
+                .Reg();
+        }
+        
     }
 
 }

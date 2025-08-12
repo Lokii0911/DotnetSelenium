@@ -31,12 +31,11 @@ namespace DotnetSelenium.TestCase
         public Login DoLogin()
         {
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
-            driver.FindElement(username).SendKeys("Admin");
+            driver.FindElement(username).SendKeys("Admi");
             driver.FindElement(password).SendKeys("admin123");
             wait.Until(ExpectedConditions.ElementToBeClickable(button));
             driver.FindElement(button).Click();
-            return this;
-            
+            return this; 
         }
 
         public Login DoNotLogin()
@@ -47,7 +46,6 @@ namespace DotnetSelenium.TestCase
             wait.Until(ExpectedConditions.ElementToBeClickable(button));
             SafeClick(button);
             return this;
-
         }
 
         public Login LoginVerify()
