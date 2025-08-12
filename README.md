@@ -18,6 +18,12 @@ Designed as a hands-on learning project, it demonstrates real-world automation c
 
 ![Selenium suite5](https://github.com/user-attachments/assets/e6a1fbfa-8217-48d6-afd0-62855441878a)
 
+![emailable](https://github.com/user-attachments/assets/e63ccd83-cb2b-475d-ad45-66e2f40b4f97)
+
+![Capt](https://github.com/user-attachments/assets/960f3399-3de1-449d-9c57-fbd5391b3417)
+
+
+
 
 
 
