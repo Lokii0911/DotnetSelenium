@@ -31,7 +31,7 @@ namespace DotnetSelenium.TestCase
         public Login DoLogin()
         {
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
-            driver.FindElement(username).SendKeys("Admi");
+            driver.FindElement(username).SendKeys("Admin");
             driver.FindElement(password).SendKeys("admin123");
             wait.Until(ExpectedConditions.ElementToBeClickable(button));
             driver.FindElement(button).Click();

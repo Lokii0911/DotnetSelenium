@@ -20,7 +20,7 @@ namespace DotnetSelenium.Setup
         protected static ExtentReports extent;
         protected ExtentTest test;
 
-        private static List<(string Name, string Status, double Duration ,string browser)> testResults
+        private static List<(string Name, string Status, double Duration, string browser)> testResults
             = new List<(string, string, double, string)>();
         private DateTime testStartTime;
         private string current_browser;
@@ -28,7 +28,7 @@ namespace DotnetSelenium.Setup
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-           
+
             string reportDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestReports");
             Directory.CreateDirectory(reportDir);
 
@@ -47,15 +47,15 @@ namespace DotnetSelenium.Setup
         [SetUp]
         public void BeforeEachTest()
         {
-           
+
             testStartTime = DateTime.Now;
 
-           
+
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
-            
-            string browser = "chrome"; 
-            current_browser= browser;   
+
+            string browser = "chrome";
+            current_browser = browser;
             if (browser.ToLower() == "chrome")
                 driver = new ChromeDriver();
             else if (browser.ToLower() == "firefox")
@@ -75,9 +75,9 @@ namespace DotnetSelenium.Setup
             var status = TestContext.CurrentContext.Result.Outcome.Status.ToString();
             var name = TestContext.CurrentContext.Test.Name;
 
-            testResults.Add((name, status, duration,current_browser));
+            testResults.Add((name, status, duration, current_browser));
 
-       
+
             if (status == "Passed")
             {
                 test.Pass("Test Passed");
@@ -102,7 +102,7 @@ namespace DotnetSelenium.Setup
         [OneTimeTearDown]
         public void AfterAllTests()
         {
-         
+
             extent.Flush();
 
 
@@ -121,10 +121,10 @@ namespace DotnetSelenium.Setup
             html.Append(".skipped { color: #f39c12; font-weight: bold; }");
             html.Append("</style></head><body>");
             html.Append("<h2>Test Summary</h2>");
-            html.Append($"<p>Total: {testResults.Count} &nbsp;|&nbsp; " +
-                        $"<span class='passed'>Passed: {testResults.Count(r => r.Status == "Passed")}</span> &nbsp;|&nbsp; " +
-                        $"<span class='failed'>Failed: {testResults.Count(r => r.Status == "Failed")}</span> &nbsp;|&nbsp; " +
-                        $"<span class='skipped'>Skipped: {testResults.Count(r => r.Status == "Skipped")}</span></p>");
+            html.Append($"<p>Total: {testResults.Count}  |  " +
+            $"<span class='passed'>Passed: {testResults.Count(r => r.Status == "Passed")}</span>  |  " +
+            $"<span class='failed'>Failed: {testResults.Count(r => r.Status == "Failed")}</span>  |  " +
+            $"<span class='skipped'>Skipped: {testResults.Count(r => r.Status == "Skipped")}</span></p>");
 
             html.Append("<table>");
             html.Append("<tr><th>Test Name</th><th>Status</th><th>Duration (s)</th><th>Browser</th></tr>");
@@ -146,7 +146,7 @@ namespace DotnetSelenium.Setup
             File.WriteAllText(Path.Combine(reportDir, "emailable.html"), html.ToString());
         }
 
-        
+
         private string CaptureScreenshot(string testName)
         {
             string screenshotsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestReports", "Screenshots");
@@ -154,11 +154,9 @@ namespace DotnetSelenium.Setup
 
             string filePath = Path.Combine(screenshotsDir, $"{testName}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            screenshot.SaveAsFile(filePath); 
+            screenshot.SaveAsFile(filePath);
             return filePath;
         }
 
     }
 }
-
-

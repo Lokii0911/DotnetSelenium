@@ -10,6 +10,65 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net8.0\TestReports\emailable.html" />
+    <Content Include="bin\Debug\net8.0\TestReports\index.html" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250809_230810.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250810_160632.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250812_221724.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250812_224602.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250815_203622.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Buzzpost_20250809_230903.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Buzzpost_20250812_221815.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Buzzpost_20250812_224657.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_123430.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_132636.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_132832.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_133129.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_133935.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_134420.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_134650.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_134832.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\ClaimValidation_20250810_135150.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Emp_20250812_221857.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Emp_20250812_224743.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_20250809_231111.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_20250812_221225.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_20250812_221938.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_20250812_224827.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_20250815_203323.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_20250815_204012.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_edge_20250815_153714.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_edge_20250815_155155.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_firefox_20250815_153030.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_firefox_20250815_162010.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_firefox_20250815_162407.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginCheck_firefox_20250815_162742.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginFailCheck_20250812_220103.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\LoginFailCheck_20250812_224912.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250809_232352.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250812_212556.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250812_220157.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250812_222030.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250812_224957.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250815_203538.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\Punch_20250815_204226.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\RecReg_20250810_141036.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\RecReg_20250810_143715.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\RecReg_20250810_153723.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\RecReg_20250810_154533.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\RecReg_20250810_160048.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\RecReg_20250812_222111.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\TC001_Logincheck_20250815_204733.png" />
+    <Content Include="bin\Debug\net8.0\TestReports\Screenshots\TC002_Loginfailcheck_20250815_204820.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="ExtentReports" Version="5.0.4" />
@@ -19,6 +78,8 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Selenium.Support" Version="4.33.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.34.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.36.0" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="138.0.3351.121" />
   </ItemGroup>
 
   <ItemGroup>
