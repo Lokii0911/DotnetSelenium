@@ -20,7 +20,7 @@ namespace DotnetSelenium.TestCase
         private static readonly By username=By.Name("username");    
         private static readonly By password=By.Name("password");
         private static readonly By button = By.CssSelector("button[type='submit']");
-
+        private static readonly By dashboardHeader = By.XPath("//h6[text()='Dashboard']");
 
         public Login(IWebDriver driver,WebDriverWait wait):base(driver, wait)
         {
@@ -28,51 +28,28 @@ namespace DotnetSelenium.TestCase
             this.wait=wait; 
         }
 
-        public Login DoLogin()
+        public Login DoLogin(string usernameValue, string passwordValue)
         {
             driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
-            driver.FindElement(username).SendKeys("Admin");
-            driver.FindElement(password).SendKeys("admin123");
-            wait.Until(ExpectedConditions.ElementToBeClickable(button));
-            driver.FindElement(button).Click();
+            driver.FindElement(username).Clear();
+            driver.FindElement(username).SendKeys(usernameValue ?? "");
+            driver.FindElement(password).Clear();
+            driver.FindElement(password).SendKeys(passwordValue ?? "");
+            SafeClick(button);
             return this; 
         }
 
-        public Login DoNotLogin()
+        public bool IsLoginSuccessful()
         {
-            driver.Navigate().GoToUrl("https://opensource-demo.orangehrmlive.com/");
-            driver.FindElement(username).SendKeys("Admin");
-            driver.FindElement(password).SendKeys("admin");
-            wait.Until(ExpectedConditions.ElementToBeClickable(button));
-            SafeClick(button);
-            return this;
-        }
-
-        public Login LoginVerify()
-        {
-
-            By dashboardHeader = By.XPath("//h6[text()='Dashboard']");
-            wait.Until(ExpectedConditions.ElementIsVisible(dashboardHeader));
-            string actualText = driver.FindElement(dashboardHeader).Text;
-            Assert.That(actualText, Is.EqualTo("Dashboard"), "Login failed or unexpected page title");
-            return this;
-        }
-
-        public Login DonotLoginVerify()
-        {
-            bool loginFailed = false;
-            if (IsElementVisible(button))
+            try
             {
-               Console.WriteLine("Login successfully failed ");
-                loginFailed = true;
+                wait.Until(ExpectedConditions.ElementIsVisible(dashboardHeader));
+                return driver.FindElement(dashboardHeader).Displayed;
             }
-            else
+            catch
             {
-               Console.WriteLine("Login successfully failed ");
-               loginFailed = false;
+                return false; 
             }
-            Assert.That(loginFailed, Is.True, "Login did not fail as expected with wrong credentials");
-            return this;
         }
 
 

@@ -21,6 +21,7 @@ namespace DotnetSelenium.TestCase
         private static readonly By Email = By.XPath("//label[text()='Email']/ancestor::div[contains(@class,'oxd-input-group')]//input[@placeholder='Type here']");
         private static readonly By ContactNumber = By.XPath("//label[text()='Contact Number']/ancestor::div[contains(@class,'oxd-input-group')]//input[@placeholder='Type here']\r\n");
         private static readonly By SaveButton = By.XPath("//button[@type='submit' and contains(@class,'oxd-button--secondary') and contains(normalize-space(.), 'Save')]");
+        private static readonly By VerifytoastMessage = By.XPath("//div[contains(@class,'oxd-toast-content')]");
 
         public Recruitment(IWebDriver driver, WebDriverWait wait):base(driver,wait)
         {
@@ -28,22 +29,30 @@ namespace DotnetSelenium.TestCase
             this.wait = wait;
         }
 
-        public Recruitment Reg()
+        public Recruitment Reg(string FirstName,string LastName,string mailid,string phoneno)
         {
             wait.Until(ExpectedConditions.ElementToBeClickable(RecruitmentMenu)).Click();
             wait.Until(ExpectedConditions.ElementToBeClickable(AddButton)).Click();
             IWebElement Firstname = wait.Until(ExpectedConditions.ElementToBeClickable(firstname));
             Firstname.Click();
-            Firstname.SendKeys("Jayanth");
+            Firstname.SendKeys(FirstName);
             IWebElement Lastname = wait.Until(ExpectedConditions.ElementToBeClickable(lastname));
             Lastname.Click();
-            Lastname.SendKeys("Yadav");
-            wait.Until(ExpectedConditions.ElementToBeClickable(Email)).SendKeys("lok@gmail.com");
-            wait.Until(ExpectedConditions.ElementToBeClickable(ContactNumber)).SendKeys("8248037756");
+            Lastname.SendKeys(LastName);
+            wait.Until(ExpectedConditions.ElementToBeClickable(Email)).SendKeys(mailid);
+            wait.Until(ExpectedConditions.ElementToBeClickable(ContactNumber)).SendKeys(phoneno);
             var saveBtn = wait.Until(ExpectedConditions.ElementExists(SaveButton));
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", saveBtn);
             wait.Until(ExpectedConditions.ElementToBeClickable(SaveButton)).Click();
             return this;
         }
+
+        public Recruitment VerifyRecruitmentSave(string expected)
+        {
+            VerifySave(expected, VerifytoastMessage);   
+            return this;
+        }
+
+
     }
 }

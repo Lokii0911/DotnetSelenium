@@ -1,0 +1,20 @@
+Data-Driven Testing for Selenium using Excel 
+#Options Found
+1.NPOI
+2.ClosedXML
+3.EPPlus
+
+Option Selected:ClosedXML
+Reason: 
+1.Completely Open sourced under MIT License.
+2.Easy to use and has a simple API.
+3.Built on top of OpenXML, designed for .xlsx files with a focus on simplicity and performance.
+4.User-friendly API for creating, reading, and modifying Excel files.
+5.Supports features like cell styling, tables, sorting, AutoFilter, and pivot tables.
+6.No dependency on Microsoft Excel.
+7.Optimized for performance with large datasets.
+
+Difficulties faced:
+1.Learning process: Understanding the ClosedXML library and its API took some time, especially for those new to working with Excel files programmatically.
+2.File Placement: Initially faced challenges in correctly placing the Excel file within the project structure to ensure it could be accessed during test execution.
+3.ScreenShot Saving: encountered issues with saving screenshots to the desired directory,because the test cases are from Enumerable class so had to use a workaround to get the test case name and save the screenshot accordingly and also restructured base class because index.html was not working as intended in capturing screenshots for enumerabl class.

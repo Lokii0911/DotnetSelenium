@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DotnetSelenium.Setup;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -7,9 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DotnetSelenium.TestCase
 {
-     public  class AddAdmin
+     public  class AddAdmin:Basefunc
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
@@ -25,7 +27,8 @@ namespace DotnetSelenium.TestCase
         private static readonly By PasswordInput = By.XPath("//label[text()='Password']/following::input[@type='password'][1]");
         private static readonly By ConfirmPasswordInput = By.XPath("//label[text()='Confirm Password']/following::input[@type='password'][1]");
         private static readonly By SaveButton = By.XPath("//button[normalize-space()='Save']");
-        public AddAdmin(IWebDriver driver, WebDriverWait wait)
+        private static readonly By VerifytoastMessage = By.XPath("//div[contains(@class,'oxd-toast-content')]");
+        public AddAdmin(IWebDriver driver, WebDriverWait wait):base(driver,wait)    
         {
             this.driver = driver;
             this.wait = wait;
@@ -37,23 +40,29 @@ namespace DotnetSelenium.TestCase
             wait.Until(ExpectedConditions.ElementToBeClickable(AddButton)).Click();
             return this;
         }
-        public AddAdmin detailsenroll() 
+        public AddAdmin detailsenroll(string empname) 
         {
-            
             wait.Until(ExpectedConditions.ElementToBeClickable(UserRoleDropdown)).Click();
             wait.Until(ExpectedConditions.ElementToBeClickable(AdminOption)).Click();
-            wait.Until(ExpectedConditions.ElementIsVisible(EmployeeNameInput)).SendKeys("Tony Stark");
+            wait.Until(ExpectedConditions.ElementIsVisible(EmployeeNameInput)).SendKeys(empname);
+            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath($"//div[@role='listbox']//span[normalize-space()='{empname}' and not(contains(@class,'hidden'))]"))).Click();
             wait.Until(ExpectedConditions.ElementToBeClickable(Dropdown)).Click();
             wait.Until(ExpectedConditions.ElementToBeClickable(EnabledOption)).Click();
             return this;
         }
 
-        public AddAdmin enterpass()
+        public AddAdmin enterpass(string username,string pass,string confpass)
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(UsernameInput)).SendKeys("Tony#Greatness");
-            wait.Until(ExpectedConditions.ElementIsVisible(PasswordInput)).SendKeys("Tony@greatness45forever");
-            wait.Until(ExpectedConditions.ElementIsVisible(ConfirmPasswordInput)).SendKeys("Tony@greatness45forever");
+            wait.Until(ExpectedConditions.ElementIsVisible(UsernameInput)).SendKeys(username);
+            wait.Until(ExpectedConditions.ElementIsVisible(PasswordInput)).SendKeys(pass);
+            wait.Until(ExpectedConditions.ElementIsVisible(ConfirmPasswordInput)).SendKeys(confpass);
             wait.Until(ExpectedConditions.ElementToBeClickable(SaveButton)).Click();
+            return this;
+        }
+
+        public AddAdmin VerifyAdminSave(string expected)
+        {
+            VerifySave(expected, VerifytoastMessage);
             return this;
         }
     }

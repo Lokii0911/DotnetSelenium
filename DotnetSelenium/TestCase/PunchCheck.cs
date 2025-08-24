@@ -21,7 +21,8 @@ namespace DotnetSelenium.TestCase
         private static readonly By PunchInout = By.XPath("//a[contains(., 'Punch In/Out')]");
         private static readonly By punchInButton = By.XPath("//button[normalize-space()='In']");
         private static readonly By punchOutButton = By.XPath("//button[normalize-space()='Out']");
-
+        private static readonly By punchNote = By.XPath("//textarea[@placeholder='Type here' and contains(@class,'oxd-textarea')]");
+        
         public PunchCheck(IWebDriver driver,WebDriverWait wait):base(driver,wait)
         {
             this.driver = driver;
@@ -29,9 +30,9 @@ namespace DotnetSelenium.TestCase
         }
         public void NavigatePage()
         {
-            wait.Until(ExpectedConditions.ElementToBeClickable(Time)).Click(); 
-            wait.Until(ExpectedConditions.ElementToBeClickable(Attendance)).Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(PunchInout)).Click();        
+            SafeClick(Time); 
+            SafeClick(Attendance);
+            SafeClick(PunchInout);        
         }
      
         public void punchcheck()
@@ -39,17 +40,21 @@ namespace DotnetSelenium.TestCase
             NavigatePage();
             if (IsElementVisible(punchInButton))
             {
+                Console.WriteLine("Punch In button found");
+                wait.Until(ExpectedConditions.ElementToBeClickable(punchNote)).SendKeys("Punching in via automation");
                 wait.Until(ExpectedConditions.ElementToBeClickable(punchInButton)).Click();
-                bool switched = wait.Until(driver => IsElementVisible(punchOutButton));
-                Assert.IsTrue(switched, "Punch In failed — Out button not visible after clicking.");
+                bool punchedIn = wait.Until(driver => IsElementVisible(punchOutButton));
+                Assert.IsTrue(punchedIn, "Punch In failed — Punch Out button not visible after punching in.");
+                Console.WriteLine("Punch In successful ");
             }
             else if (IsElementVisible(punchOutButton))
             {
-                driver.Navigate().Refresh();
+                Console.WriteLine("Punch Out button found ");
+                wait.Until(ExpectedConditions.ElementToBeClickable(punchNote)).SendKeys("Punching out via automation");
                 wait.Until(ExpectedConditions.ElementToBeClickable(punchOutButton)).Click();
-                wait.Until(ExpectedConditions.InvisibilityOfElementLocated(punchOutButton));
-                bool switched = wait.Until(driver =>IsElementVisible(punchInButton));
-                Assert.IsTrue(switched, "Punch Out failed — In button not visible after clicking.");
+                bool punchedOut = wait.Until(driver => IsElementVisible(punchInButton));
+                Assert.IsTrue(punchedOut, "Punch Out failed — Punch In button not visible after punching out.");
+                Console.WriteLine("Punch Out successful 🚀");
             }
             else
             {

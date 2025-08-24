@@ -16,8 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="bin\Debug\net8.0\TestReports\emailable.html" />
-    <Content Include="bin\Debug\net8.0\TestReports\index.html" />
+    <Content Include="bin\Debug\net8.0\TestReports\emailable.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Debug\net8.0\TestReports\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250809_230810.png" />
     <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250810_160632.png" />
     <Content Include="bin\Debug\net8.0\TestReports\Screenshots\AdminCheck_20250812_221724.png" />
@@ -69,10 +73,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="ExtentReports" Version="5.0.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
@@ -84,6 +89,18 @@
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DDT\Objcreation.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\TestData\TestDatafile.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

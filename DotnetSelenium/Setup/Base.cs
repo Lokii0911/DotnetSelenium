@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using DotnetSelenium.DDT;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,7 +14,7 @@ using System.Text;
 
 namespace DotnetSelenium.Setup
 {
-    public class Base
+    public class Base:Objcreation
     {
         protected IWebDriver driver;
         protected WebDriverWait wait;
@@ -72,31 +73,46 @@ namespace DotnetSelenium.Setup
         public void AfterEachTest()
         {
             var duration = (DateTime.Now - testStartTime).TotalSeconds;
-            var status = TestContext.CurrentContext.Result.Outcome.Status.ToString();
+            var outcome = TestContext.CurrentContext.Result.Outcome.Status;
             var name = TestContext.CurrentContext.Test.Name;
 
-            testResults.Add((name, status, duration, current_browser));
+            testResults.Add((name, outcome.ToString(), duration, current_browser));
 
+            switch (outcome)
+            {
+                case NUnit.Framework.Interfaces.TestStatus.Passed:
+                    test.Pass("Test Passed");
+                    break;
 
-            if (status == "Passed")
-            {
-                test.Pass("Test Passed");
-            }
-            else if (status == "Failed")
-            {
-                string screenshotPath = CaptureScreenshot(name);
-                test.Fail("Test Failed")
-                    .Fail($"Error: {TestContext.CurrentContext.Result.Message}")
-                    .Fail($"Stack Trace: {TestContext.CurrentContext.Result.StackTrace}")
-                    .AddScreenCaptureFromPath(screenshotPath);
-            }
-            else
-            {
-                test.Skip("Test Skipped");
+                case NUnit.Framework.Interfaces.TestStatus.Failed:
+                    string screenshotPath = CaptureScreenshot(SanitizeFileName(name));
+                    test.Fail("Test Failed")
+                        .Fail($"Error: {TestContext.CurrentContext.Result.Message}")
+                        .Fail($"Stack Trace: {TestContext.CurrentContext.Result.StackTrace}")
+                        .AddScreenCaptureFromPath(screenshotPath);
+                    break;
+
+                case NUnit.Framework.Interfaces.TestStatus.Skipped:
+                    test.Skip("Test Skipped");
+                    break;
+
+                default:
+                    test.Warning("Test ended with unexpected status: " + outcome);
+                    break;
             }
 
-            driver.Quit();
-            driver.Dispose();
+            driver?.Quit();
+            driver?.Dispose();
+            driver = null;
+        }
+
+        private string SanitizeFileName(string name)
+        {
+            foreach (var c in Path.GetInvalidFileNameChars())
+            {
+                name = name.Replace(c, '_');
+            }
+            return name;
         }
 
         [OneTimeTearDown]
@@ -151,7 +167,7 @@ namespace DotnetSelenium.Setup
         {
             string screenshotsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestReports", "Screenshots");
             Directory.CreateDirectory(screenshotsDir);
-
+            string safeTestName = string.Concat(testName.Split(Path.GetInvalidFileNameChars()));
             string filePath = Path.Combine(screenshotsDir, $"{testName}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             screenshot.SaveAsFile(filePath);

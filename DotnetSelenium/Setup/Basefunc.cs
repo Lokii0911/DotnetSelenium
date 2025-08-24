@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DotnetSelenium.TestCase;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -52,6 +53,23 @@ namespace DotnetSelenium.Setup
             }
         }
 
+        public void Sendvalues(By locator,string value)
+        {
+            try
+            {
+               wait.Until(ExpectedConditions.ElementToBeClickable(locator)).SendKeys(value);
+               
+            }
+            catch (WebDriverTimeoutException)
+            {
+                Console.WriteLine($"Element not clickable : {locator}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error during SafeClick: {e.Message}");
+            }
+        }
+
         public void SafestClick(By locator)
         {
             try
@@ -78,6 +96,33 @@ namespace DotnetSelenium.Setup
             {
                 Console.WriteLine($"Error during SafeClick: {e.Message}");
             }
+        }
+
+        public void VerifySave(string expected,By locator)
+        {
+            try
+            {
+                var toast = wait.Until(ExpectedConditions.ElementIsVisible(locator));
+
+                bool success = toast.Text.Contains("Successfully Saved", StringComparison.OrdinalIgnoreCase);
+
+                if (expected.Equals("Pass", StringComparison.OrdinalIgnoreCase))
+                {
+                    Assert.That(success, Is.True, " Expected creation to succeed but no success toast appeared.");
+                }
+                else
+                {
+                    Assert.That(success, Is.False, "Expected failure, but success toast appeared.");
+                }
+            }
+            catch (WebDriverTimeoutException)
+            {
+                if (expected.Equals("Pass", StringComparison.OrdinalIgnoreCase))
+                    Assert.Fail(" Expected success but no toast appeared within timeout.");
+                else
+                    Assert.Pass("Expected failure, and no success toast appeared.");
+            }
+            
         }
 
     }

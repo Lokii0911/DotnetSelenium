@@ -24,10 +24,10 @@ namespace DotnetSelenium.TestCase
             this.driver = driver;
             this.wait = wait;
        }
-       public Addbuzz Buzzclick()
+       public Addbuzz Buzzclick(string post)
         {  
             SafeClick(buzzButton);
-            driver.FindElement(textArea).SendKeys("Great Work Team");
+            driver.FindElement(textArea).SendKeys(post);
             SafestClick(postButton);
             return this;
         }
