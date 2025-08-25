@@ -19,7 +19,7 @@ Difficulties faced:
 2.File Placement: Initially faced challenges in correctly placing the Excel file within the project structure to ensure it could be accessed during test execution.
 3.ScreenShot Saving: encountered issues with saving screenshots to the desired directory,because the test cases are from Enumerable class so had to use a workaround to get the test case name and save the screenshot accordingly and also restructured base class because index.html was not working as intended in capturing screenshots for enumerabl class.
 
-Project level difficulties 
+Project level difficulties faced
 1.Synchronization issues in dynamic elements and driver extension methods.
 2.Initially Extent reports failed in stack trace and report collection after using enumerable.
 
